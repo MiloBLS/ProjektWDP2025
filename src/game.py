@@ -15,8 +15,8 @@ class Game:
         self.card = Card() #NIE WIEM CZY BĘDZIE POTRZEBNE
         self.game_over = False
         #obrazki
-        self.bg_sheet = SpriteSheet(load_image("ui/background.png", alpha=False))
-        self.bg_image = self.bg_sheet.get_image(0, c.WIDTH, c.HEIGHT, (0,0,0))
+        self.menu_sheet = SpriteSheet(load_image("ui/menu.png", alpha=False))
+        self.menu_image = self.menu_sheet.get_image(0, c.S_WIDTH, c.S_HEIGHT, (0,0,0))
     def run(self):
         while self.running:
             self._handle_events()
@@ -34,5 +34,5 @@ class Game:
     def _update(self):
         pass
     def _draw(self):
-        self.screen.blit(self.bg_image, (0, 0))
+        self.screen.blit(self.menu_image, (0, 0))
         pygame.display.flip()
