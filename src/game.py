@@ -1,22 +1,15 @@
 import pygame
 import src.config as c
-from src.classes.card import Card
-from src.classes.spritesheet import SpriteSheet
-from src.classes.loader import load_image
 
 class Game:
     def __init__(self):
         pygame.init()
         self.screen = pygame.display.set_mode((c.WIDTH, c.HEIGHT))
         pygame.display.set_caption("Scoundrel")
-        self.clock = pygame.time.Clock() #NIE WIEM CZY BĘDZIE POTRZEBNE
+        self.clock = pygame.time.Clock()
         self.game_timer = 0
         self.running = True
-        self.card = Card() #NIE WIEM CZY BĘDZIE POTRZEBNE
         self.game_over = False
-        #obrazki
-        self.menu_sheet = SpriteSheet(load_image("ui/menu.png", alpha=False))
-        self.menu_image = self.menu_sheet.get_image(0, c.S_WIDTH, c.S_HEIGHT, (0,0,0))
     def run(self):
         while self.running:
             self._handle_events()
@@ -30,9 +23,11 @@ class Game:
                 self.running = False
             elif event.type == pygame.KEYDOWN and not self.game_over:
                 if event.key == pygame.K_ESCAPE:
-                    self.game_state = "MENU"
+                    if self.game_state == "MENU":
+                        self.game_state = "GAME"
+                    else:
+                        self.game_state = "MENU"
     def _update(self):
         pass
     def _draw(self):
-        self.screen.blit(self.menu_image, (0, 0))
         pygame.display.flip()
