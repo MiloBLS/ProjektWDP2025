@@ -1,50 +1,55 @@
 from src.classes.spritesheet import SpriteSheet
-import config as c
+import src.config as c
 
-bg_sheet = SpriteSheet("assets/ui/background.png")
-menu_sheet = SpriteSheet("assets/ui/menu.png")
-button_sheet = SpriteSheet("assets/ui/menu.png")
-pik_sheet = SpriteSheet("assets/cards/karta_basic_as")
-karo_sheet = SpriteSheet("assets/cards/karta_basic_karo")
-kier_sheet = SpriteSheet("assets/cards/karta_basic_kier")
-trefl_sheet = SpriteSheet("assets/cards/karta_basic_trefl")
-cbg_sheet = SpriteSheet("assets/cards/card_back.png")
-cbgh_sheet = SpriteSheet("assets/cards/card_back_highlight.png")
+class AssetManager:
+    def __init__(self):
+        self.bg_frames = {}
+        self.menu_frames = {}
+        self.button_frames = {}
+        self.pik_frames = {}
+        self.karo_frames = {}
+        self.kier_frames = {}
+        self.trefl_frames = {}
+        self.cbg_frames = {}
+        self.cbgh_frames = {}
 
-bg_frames = {}
-menu_frames = {}
-button_frames = {}
-pik_frames = {}
-karo_frames = {}
-kier_frames = {}
-trefl_frames = {}
-cbg_frames = {}
-cbgh_frames = {}
+    def load_content(self):
+        bg_sheet = SpriteSheet("assets/ui/background.png", False)
+        menu_sheet = SpriteSheet("assets/ui/menu.png", False)
+        button_sheet = SpriteSheet("assets/ui/button.png")
+        pik_sheet = SpriteSheet("assets/cards/karta_basic_as.png")
+        karo_sheet = SpriteSheet("assets/cards/karta_basic_karo.png")
+        kier_sheet = SpriteSheet("assets/cards/karta_basic_kier.png")
+        trefl_sheet = SpriteSheet("assets/cards/karta_basic_trefl.png")
+        cbg_sheet = SpriteSheet("assets/cards/card_back.png")
+        cbgh_sheet = SpriteSheet("assets/cards/card_back_highlight.png")
 
-for frame_index in range(21):
-    image = bg_sheet.get_image(frame_index, c.S_WIDTH, c.S_HEIGHT, (0,0,0))
-    bg_frames[frame_index] = image
+        for frame_index in range(21):
+            self.bg_frames[frame_index] = bg_sheet.get_image(frame_index, c.S_WIDTH, c.S_HEIGHT)
 
-for frame_index in range(5):
-    image = menu_sheet.get_image(frame_index, c.S_WIDTH, c.S_HEIGHT, (0,0,0))
-    menu_frames[frame_index] = image
+        for frame_index in range(5):
+            self.menu_frames[frame_index] = menu_sheet.get_image(frame_index, c.S_WIDTH, c.S_HEIGHT)
 
-for frame_index in range(2):
-    image_button = button_sheet.get_image(frame_index, c.S_WIDTH, c.S_HEIGHT, (0,0,0))
-    image_cbg = cbg_sheet.get_image(frame_index, c.CARD_WIDTH, c.CARD_HEIGHT, (0,0,0))
-    image_cbgh = cbgh_sheet.get_image(frame_index,c.CARD_WIDTH, c.CARD_HEIGHT, (0,0,0))
-    button_frames[frame_index] = image_button
-    cbg_frames[frame_index] = image_cbg
-    cbgh_frames[frame_index] = image_cbgh
+        for frame_index in range(2):
+            image_button = button_sheet.get_image(frame_index, c.S_WIDTH, c.S_HEIGHT, (0,0,0))
+            image_cbg = cbg_sheet.get_image(frame_index, c.CARD_WIDTH, c.CARD_HEIGHT, (0,0,0))
+            image_cbgh = cbgh_sheet.get_image(frame_index, c.CARD_WIDTH, c.CARD_HEIGHT, (0,0,0))
+            self.button_frames[frame_index] = image_button
+            self.cbg_frames[frame_index] = image_cbg
+            self.cbgh_frames[frame_index] = image_cbgh
 
-for frame_index in range(13):
-    image_pik = pik_sheet.get_image(frame_index, c.CARD_WIDTH, c.CARD_HEIGHT, (0,0,0))
-    image_trefl = trefl_sheet.get_image(frame_index, c.CARD_WIDTH, c.CARD_HEIGHT, (0,0,0))
-    pik_frames[frame_index] = image_pik
-    trefl_frames[frame_index] = image_trefl
+        for frame_index in range(13):
+            image_pik = pik_sheet.get_image(frame_index, c.CARD_WIDTH, c.CARD_HEIGHT, (0,0,0))
+            image_trefl = trefl_sheet.get_image(frame_index, c.CARD_WIDTH, c.CARD_HEIGHT, (0,0,0))
+            self.pik_frames[frame_index] = image_pik
+            self.trefl_frames[frame_index] = image_trefl
 
-for frame_index in range(9):
-    image_kier = kier_sheet.get_image(frame_index, c.CARD_WIDTH, c.CARD_HEIGHT, (0,0,0))
-    image_karo = karo_sheet.get_image(frame_index, c.CARD_WIDTH, c.CARD_HEIGHT, (0,0,0))
-    kier_frames[frame_index]= image_kier
-    karo_frames[frame_index]= image_karo
+        for frame_index in range(9):
+            image_kier = kier_sheet.get_image(frame_index, c.CARD_WIDTH, c.CARD_HEIGHT, (0,0,0))
+            image_karo = karo_sheet.get_image(frame_index, c.CARD_WIDTH, c.CARD_HEIGHT, (0,0,0))
+            self.kier_frames[frame_index] = image_kier
+            self.karo_frames[frame_index] = image_karo
+            
+    def get_frame(self, name, value):
+        frames = getattr(self, f"{name}_frames")
+        return frames.get(value)
