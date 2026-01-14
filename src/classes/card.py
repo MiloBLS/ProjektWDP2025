@@ -1,8 +1,9 @@
+import pygame
+
 class Card:
     def __init__(self, suit, value):
         self.suit = suit
         self.value = value
-        self.img = None
     def set_img(self, img):
         self.img = img
     def get_img(self):
@@ -11,3 +12,5 @@ class Card:
         return self.suit
     def get_value(self):
         return self.value
+    def get_rect(self):
+        return self.img.get_rect()
