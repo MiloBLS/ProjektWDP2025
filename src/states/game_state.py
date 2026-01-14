@@ -1,6 +1,7 @@
 import pygame
 import src.config as c
 from src.classes.deck import Deck
+from src.classes.card import Card
 
 class GameState:
     def __init__(self, game):
@@ -12,8 +13,8 @@ class GameState:
         self.run_count = 2
         self._can_run()
         self.room_cards = []
-        self.room_cards_slots = [(c.pos_x, c.pos_y), (c.pos_x + c.gap, c.pos_y), (c.pos_x + (c.gap * 2), c.pos_y), (c.pos_x + (c.gap * 3), c.pos_y)]
-        self._refill_room
+        self.room_cards_slots = [(c.pos_x + c.CARD_WIDTH, c.pos_y), (c.pos_x + c.gap + c.CARD_WIDTH, c.pos_y), (c.pos_x + (c.gap * 2) + c.CARD_WIDTH, c.pos_y), (c.pos_x + (c.gap * 3) + c.CARD_WIDTH, c.pos_y)]
+        self._refill_room()
 
     def _refill_room(self):
 
@@ -26,7 +27,7 @@ class GameState:
                 slot_index = len(self.room_cards) 
                 target_x, target_y = self.room_cards_slots[slot_index]
                 
-                new_card = pygame.Rect(target_x, target_y, c.CARD_WIDTH, c.CARD_HEIGHT)
+                new_card.rect = pygame.Rect(target_x, target_y, c.CARD_WIDTH, c.CARD_HEIGHT)
                 
                 self.room_cards.append(new_card)
             else:

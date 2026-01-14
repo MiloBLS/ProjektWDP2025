@@ -4,6 +4,7 @@ class Card:
     def __init__(self, suit, value):
         self.suit = suit
         self.value = value
+        self.rect = None
     def set_img(self, img):
         self.img = img
     def get_img(self):
