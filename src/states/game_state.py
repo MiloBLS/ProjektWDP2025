@@ -6,6 +6,7 @@ class GameState:
     def __init__(self, game):
         self.game = game
         self.run_btn_rect = pygame.Rect(int(45 * c.SCALE), int(170 * c.SCALE), int(85 * c.SCALE), int(35 * c.SCALE))
+        self.wepaon_button_rect = pygame.Rect(int(48 * c.SCALE), int(317 * c.SCALE), int(79 *c.SCALE), int(31 *c.SCALE))
         self.player_hp = 20
         self.current_weapon = 0
         self.last_monster_value = 0
@@ -15,6 +16,7 @@ class GameState:
         self.deck.shuffle()
         self.can_run = True
         self.healed = False
+        self.hand = False
         self.deck_rect = pygame.Rect(c.deck_pos_x, c.pos_y, int(c.CARD_WIDTH * c.SCALE), int(c.CARD_HEIGHT * c.SCALE))
 
         self.room_cards = []
@@ -70,6 +72,11 @@ class GameState:
                 self.room_cards.clear()
                 self._refill_room()
                 self.can_run = False
+            if self.wepaon_button_rect.collidepoint(self.mouse_pos):
+                if self.hand:
+                    self.hand = False
+                else:
+                    self.hand = True
         self.handle_card_interactions(event)
 
     def update(self):
@@ -80,6 +87,16 @@ class GameState:
 
         for card in self.room_cards:
             card.update()
+
+        for card in self.weapon:
+            card.update()
+        
+        for card in self.monsters_pile:
+            card.update()
+            
+        for card in self.discard_pile:
+            card.update()
+
         if self.player_hp <= 0:
             self.game.game_over = True
 
@@ -90,6 +107,10 @@ class GameState:
         btn_frame_idx = 1 if self.can_run and self.cards_played_this_turn == 0 else 0
         btn_image = self.game.assets.get_frame("button", btn_frame_idx)
         screen.blit(btn_image, (0, 0))
+
+        weapon_button_idx = 1 if self.hand else 0
+        wepaon_button_image = self.game.assets.get_frame("weapon_button", weapon_button_idx)
+        screen.blit(wepaon_button_image, (0, 0))
 
         if self.deck.hml() > 0:                                                             #start
             if self.draw_anim_timer > 0:
@@ -139,10 +160,16 @@ class GameState:
                         self.player_hp += card_value
                     self.healed = True
                     self.discard_pile.append(clicked_card)
-                    for card in self.discard_pile:
-                        card.move_to(int(c.pos_x + (3 * c.gap)), c.bottom_pos_y)
+                    clicked_card.move_to(int(c.pos_x + (3 * c.gap)), c.bottom_pos_y)
 
             elif suit == "karo":
+                for card in self.weapon:
+                    self.discard_pile.append(card)
+                for card in self.monsters_pile:
+                    self.discard_pile.append(card)
+                if len(self.discard_pile) > 0:
+                    for card in self.discard_pile:
+                        card.move_to(int(c.pos_x + (3 * c.gap)), c.bottom_pos_y)
                 self.weapon.clear()
                 self.monsters_pile.clear()
                 self.current_weapon = card_value
@@ -155,18 +182,29 @@ class GameState:
             elif suit in ["trefl", "pik"]:
                 damage = 0
                 
-                can_use_weapon = (self.current_weapon > 0) and (self.last_monster_value == 0 or card_value <= self.last_monster_value)
-                
-                if can_use_weapon:
-                    damage = card_value - self.current_weapon
-                    if damage < 0:
-                        damage = 0
-                    self.last_monster_value = card_value
+                if self.hand == False:
+                    can_use_weapon = (self.current_weapon > 0) and (self.last_monster_value == 0 or card_value <= self.last_monster_value)
+                    
+                    if can_use_weapon:
+                        damage = card_value - self.current_weapon
+                        if damage < 0:
+                            damage = 0
+                        self.last_monster_value = card_value
+
+                        self.monsters_pile.append(clicked_card)
+                        offset_x = (len(self.monsters_pile) - 1) * 50
+                        target_x = int(c.pos_x + c.gap + offset_x)
+                        clicked_card.move_to(target_x, c.bottom_pos_y)
+                    else:
+                        damage = card_value
+                        self.discard_pile.append(clicked_card)
+                        clicked_card.move_to(int(c.pos_x + (3 * c.gap)), c.bottom_pos_y)
                 else:
-                    damage = card_value
-                self.monsters_pile.append(clicked_card)
-                for card in self.monsters_pile:
-                    card.move_to(int(c.pos_x + c.gap + (20 * self.monsters)), c.bottom_pos_y)
+                        damage = card_value
+                        self.discard_pile.append(clicked_card)
+                        clicked_card.move_to(int(c.pos_x + (3 * c.gap)), c.bottom_pos_y)
+
+                
                 
                 self.player_hp -= damage
                 self.monsters += 1

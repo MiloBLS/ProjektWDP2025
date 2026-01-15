@@ -6,6 +6,7 @@ class AssetManager:
         self.bg_frames = {}
         self.menu_frames = {}
         self.button_frames = {}
+        self.weapon_button_frames = {}
         self.pik_frames = {}
         self.karo_frames = {}
         self.kier_frames = {}
@@ -17,6 +18,7 @@ class AssetManager:
         bg_sheet = SpriteSheet("assets/ui/background.png", False)
         menu_sheet = SpriteSheet("assets/ui/menu.png", False)
         button_sheet = SpriteSheet("assets/ui/button.png")
+        weapon_button_sheet = SpriteSheet("assets/ui/weapon_button.png")
         pik_sheet = SpriteSheet("assets/cards/karta_basic_as.png")
         karo_sheet = SpriteSheet("assets/cards/karta_basic_karo.png")
         kier_sheet = SpriteSheet("assets/cards/karta_basic_kier.png")
@@ -32,9 +34,11 @@ class AssetManager:
 
         for frame_index in range(2):
             image_button = button_sheet.get_image(frame_index, c.S_WIDTH, c.S_HEIGHT, (0,0,0))
+            image_weapon_button = weapon_button_sheet.get_image(frame_index, c.S_WIDTH, c.S_HEIGHT, (0,0,0))
             image_cbg = cbg_sheet.get_image(frame_index, c.CARD_WIDTH, c.CARD_HEIGHT, (255,0,255))
             image_cbgh = cbgh_sheet.get_image(frame_index, c.CARD_WIDTH, c.CARD_HEIGHT, (255,0,255))
             self.button_frames[frame_index] = image_button
+            self.weapon_button_frames[frame_index] = image_weapon_button
             self.cbg_frames[frame_index] = image_cbg
             self.cbgh_frames[frame_index] = image_cbgh
 
