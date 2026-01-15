@@ -16,11 +16,15 @@ WIDTH = int(640 * SCALE)
 HEIGHT = int(360 * SCALE)
 FPS = 60
 
-CARD_WIDTH = 128 
-CARD_HEIGHT = 128 
+CARD_WIDTH = 128
+CARD_HEIGHT = 128
 S_WIDTH = 640
 S_HEIGHT = 360
 
-pos_x = int(192 * SCALE)
+pos_x = int(170 * SCALE)
 pos_y = int(32 * SCALE)
-gap = int(29 * SCALE)
+gap = int(106 * SCALE)
+deck_pos_x = int(24 * SCALE)
+bottom_pos_y = int(200 * SCALE)
+
+speed = 15

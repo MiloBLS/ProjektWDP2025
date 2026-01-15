@@ -32,21 +32,21 @@ class AssetManager:
 
         for frame_index in range(2):
             image_button = button_sheet.get_image(frame_index, c.S_WIDTH, c.S_HEIGHT, (0,0,0))
-            image_cbg = cbg_sheet.get_image(frame_index, c.CARD_WIDTH, c.CARD_HEIGHT, (0,0,0))
-            image_cbgh = cbgh_sheet.get_image(frame_index, c.CARD_WIDTH, c.CARD_HEIGHT, (0,0,0))
+            image_cbg = cbg_sheet.get_image(frame_index, c.CARD_WIDTH, c.CARD_HEIGHT, (255,0,255))
+            image_cbgh = cbgh_sheet.get_image(frame_index, c.CARD_WIDTH, c.CARD_HEIGHT, (255,0,255))
             self.button_frames[frame_index] = image_button
             self.cbg_frames[frame_index] = image_cbg
             self.cbgh_frames[frame_index] = image_cbgh
 
         for frame_index in range(13):
-            image_pik = pik_sheet.get_image(frame_index, c.CARD_WIDTH, c.CARD_HEIGHT, (0,0,0))
-            image_trefl = trefl_sheet.get_image(frame_index, c.CARD_WIDTH, c.CARD_HEIGHT, (0,0,0))
+            image_pik = pik_sheet.get_image(frame_index, c.CARD_WIDTH, c.CARD_HEIGHT, (255,0,255))
+            image_trefl = trefl_sheet.get_image(frame_index, c.CARD_WIDTH, c.CARD_HEIGHT, (255,0,255))
             self.pik_frames[frame_index] = image_pik
             self.trefl_frames[frame_index] = image_trefl
 
         for frame_index in range(9):
-            image_kier = kier_sheet.get_image(frame_index, c.CARD_WIDTH, c.CARD_HEIGHT, (0,0,0))
-            image_karo = karo_sheet.get_image(frame_index, c.CARD_WIDTH, c.CARD_HEIGHT, (0,0,0))
+            image_kier = kier_sheet.get_image(frame_index, c.CARD_WIDTH, c.CARD_HEIGHT, (255,0,255))
+            image_karo = karo_sheet.get_image(frame_index, c.CARD_WIDTH, c.CARD_HEIGHT, (255,0,255))
             self.kier_frames[frame_index] = image_kier
             self.karo_frames[frame_index] = image_karo
             
