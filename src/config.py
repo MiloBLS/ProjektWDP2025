@@ -27,4 +27,8 @@ gap = int(106 * SCALE)
 deck_pos_x = int(24 * SCALE)
 bottom_pos_y = int(200 * SCALE)
 
-speed = 15
+SPEED_PRESETS = [15, 30, 60]
+
+current_speed_index = 0
+
+speed = SPEED_PRESETS[current_speed_index]

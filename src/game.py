@@ -5,6 +5,7 @@ from src.states.menu_state import MenuState
 from src.states.game_state import GameState
 from src.states.game_over_state import GameOverState
 from src.states.scores_state import ScoresState
+from src.states.settings_state import SettingsState
 
 class Game:
     def __init__(self):
@@ -21,6 +22,7 @@ class Game:
         self.game_state = GameState(self)
         self.game_over_state = GameOverState(self)
         self.scores_state = ScoresState(self)
+        self.settings_state = SettingsState(self)
         
 
     def run(self):
@@ -48,6 +50,9 @@ class Game:
             elif self.current_state == "SCORES":
                 self.scores_state.handle_events(event)
 
+            elif self.current_state == "SETTINGS":
+                self.settings_state.handle_events(event)
+
     def _update(self):
         self.mouse_pos = pygame.mouse.get_pos()
         if self.current_state == "MENU":
@@ -62,6 +67,9 @@ class Game:
         elif self.current_state == "SCORES":
             self.scores_state.update()
 
+        elif self.current_state == "SETTINGS":
+            self.settings_state.update()
+
     def _draw(self):
         if self.current_state == "MENU":
             self.menu_state.draw(self.screen)
@@ -74,6 +82,9 @@ class Game:
 
         elif self.current_state == "SCORES":
             self.scores_state.draw(self.screen)
+
+        elif self.current_state == "SETTINGS":
+            self.settings_state.draw(self.screen)
 
         pygame.display.flip()
 

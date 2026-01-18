@@ -17,7 +17,7 @@ class MenuState:
                 if self.current_frame_index == 1:
                     self.game.current_state = "GAME"
                 elif self.current_frame_index == 2:
-                    pass
+                    self.game.current_state = "SETTINGS"
                 elif self.current_frame_index == 3:
                     self.game.scores_state.load_scores()
                     self.game.current_state = "SCORES"
