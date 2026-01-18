@@ -68,7 +68,7 @@ class GameState:
             if event.key == pygame.K_ESCAPE:
                 self.game.current_state = "MENU"
             if event.key == pygame.K_0:                                                                     #loophole for testing
-                self.can_run = True 
+                self.player_hp = 20
         if event.type == pygame.MOUSEBUTTONDOWN:
             if self.run_btn_rect.collidepoint(self.mouse_pos) and self.can_run and self.cards_played_this_turn == 0:
                 self.deck.run(self.room_cards)
@@ -115,17 +115,17 @@ class GameState:
         wepaon_button_image = self.game.assets.get_frame("weapon_button", weapon_button_idx)
         screen.blit(wepaon_button_image, (0, 0))
 
-        if self.deck.hml() > 0:                                                             #start
+        if self.deck.hml() > 0:
             if self.draw_anim_timer > 0:
                  screen.blit(self.game.assets.get_frame("cbgh", 1), self.deck_rect)
             else:
                  screen.blit(self.game.assets.get_frame("cbg", 0), self.deck_rect)
-                                                                                #stop
+
 
         for card in self.room_cards:
             img = card.get_img()
             screen.blit(img, card.rect)
-            # pygame.draw.rect(screen, (255, 0, 0), card, 1)                             test hitbox kart n
+            # pygame.draw.rect(screen, (255, 0, 0), card, 1)                             test hitbox kart
         for card in self.discard_pile:
             img = card.get_img()
             screen.blit(img, card.rect)

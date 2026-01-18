@@ -5,7 +5,7 @@ from src.states.game_state import GameState
 class GameOverState:
     def __init__(self, game):
         self.game = game
-        self.font = pygame.font.Font("assets/fonts/alagard.ttf", int(16 * c.SCALE))
+        self.font = pygame.font.Font("assets/fonts/alagard.ttf", int(16 * c.SCALE * 2))
         
         self.player_name = ""
         self.input_active = False
@@ -17,7 +17,7 @@ class GameOverState:
         self.btn_retry_rect = pygame.Rect(int(40 * c.SCALE), int(260 * c.SCALE), int(261 * c.SCALE), int(27 * c.SCALE))
         self.btn_save_rect = pygame.Rect(int(412 * c.SCALE), int(261 * c.SCALE), int(189 * c.SCALE), int(27 * c.SCALE))
         
-        self.final_score = 0
+        self.score = 0
         self.score_saved = False
 
     def set_score(self, score):
@@ -39,6 +39,8 @@ class GameOverState:
                 self.save_score()
 
         if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                self.game.current_state = "MENU"
             if self.input_active and not self.score_saved:
                 if event.key == pygame.K_RETURN:
                     self.save_score()
@@ -52,9 +54,10 @@ class GameOverState:
         if self.player_name.strip() == "":
             return    
         else:
-            with open("scores.txt", "a") as f:
-                f.write(f"{self.player_name}: {self.final_score}\n")
-            
+            with open("src/scores.txt", "a") as f:
+                f.write(f"{self.player_name}: {self.score}\n")
+                f.close()
+
             self.score_saved = True
 
     def update(self):
@@ -73,22 +76,24 @@ class GameOverState:
             self.input_frame = 0
 
     def draw(self, screen):
-        text_score = self.font.render(f"{self.final_score}", True, (255, 255, 255))
-        screen.blit(text_score, (int(312 * c.SCALE), int(150 * c.SCALE)))
-
-        
-        txt_surface = self.font.render(self.player_name, True, (255, 255, 255))
-        screen.blit(txt_surface, (self.input_rect.x, self.input_rect.y))
-        
-        if not self.score_saved and self.player_name.strip() == "":
-            hint = self.font.render("Wpisz imię:", True, (150, 150, 150))
-            screen.blit(hint, (self.input_rect.x, self.input_rect.y))
-        else:
-            saved_msg = self.font.render("Zapisano!", True, (0, 255, 0))
-            screen.blit(saved_msg, (self.input_rect.x, self.input_rect.y))
-
         bg = self.game.assets.get_frame("game_over", self.frame_idx)
         screen.blit(bg, (0,0))
 
         bt = self.game.assets.get_frame("input", self.input_frame)
         screen.blit(bt, (0,0))
+        
+        text_score = self.font.render(f"{self.score}", True, (255, 255, 255))
+        screen.blit(text_score, (int(312 * c.SCALE), int(150 * c.SCALE)))
+
+        
+        txt_surface = self.font.render(self.player_name, True, (255, 255, 255))
+        screen.blit(txt_surface, (self.input_rect.x + int(10 * c.SCALE), self.input_rect.y + int(10 * c.SCALE)))
+        
+        if not self.score_saved and self.player_name.strip() == "":
+            hint = self.font.render("Wpisz nazwe:", True, (150, 150, 150))
+            screen.blit(hint, (self.input_rect.x + int(10 * c.SCALE), self.input_rect.y + int(10 * c.SCALE)))
+        if self.score_saved:
+            saved_msg = self.font.render("Zapisano!", True, (0, 255, 0))
+            screen.blit(saved_msg, (self.btn_save_rect.x, self.btn_save_rect.y + int(30 * c.SCALE)))
+
+

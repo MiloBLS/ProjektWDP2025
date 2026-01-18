@@ -4,6 +4,7 @@ from src.classes.assetmanager import AssetManager
 from src.states.menu_state import MenuState
 from src.states.game_state import GameState
 from src.states.game_over_state import GameOverState
+from src.states.scores_state import ScoresState
 
 class Game:
     def __init__(self):
@@ -19,6 +20,7 @@ class Game:
         self.menu_state = MenuState(self)
         self.game_state = GameState(self)
         self.game_over_state = GameOverState(self)
+        self.scores_state = ScoresState(self)
         
 
     def run(self):
@@ -42,6 +44,9 @@ class Game:
 
             elif self.current_state == "GAME_OVER":
                 self.game_over_state.handle_events(event)
+            
+            elif self.current_state == "SCORES":
+                self.scores_state.handle_events(event)
 
     def _update(self):
         self.mouse_pos = pygame.mouse.get_pos()
@@ -53,6 +58,9 @@ class Game:
 
         elif self.current_state == "GAME_OVER":
             self.game_over_state.update()
+        
+        elif self.current_state == "SCORES":
+            self.scores_state.update()
 
     def _draw(self):
         if self.current_state == "MENU":
@@ -63,6 +71,9 @@ class Game:
 
         elif self.current_state == "GAME_OVER":
             self.game_over_state.draw(self.screen)
+
+        elif self.current_state == "SCORES":
+            self.scores_state.draw(self.screen)
 
         pygame.display.flip()
 

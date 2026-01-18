@@ -15,6 +15,7 @@ class AssetManager:
         self.cbgh_frames = {}
         self.game_over_frames = {}
         self.input_frames = {}
+        self.scores_frames = {}
 
     def load_content(self):
         bg_sheet = SpriteSheet("assets/ui/background.png", False)
@@ -29,6 +30,7 @@ class AssetManager:
         cbgh_sheet = SpriteSheet("assets/cards/card_back_highlight.png")
         game_over_sheet = SpriteSheet("assets/ui/game_over_screen.png", False)
         input_sheet = SpriteSheet("assets/ui/input.png")
+        scores_sheet = SpriteSheet("assets/ui/scores.png")
 
         for frame_index in range(21):
             self.bg_frames[frame_index] = bg_sheet.get_image(frame_index, c.S_WIDTH, c.S_HEIGHT)
@@ -62,7 +64,9 @@ class AssetManager:
 
         for frame_index in range(3):
             image_game_over = game_over_sheet.get_image(frame_index, c.S_WIDTH, c.S_HEIGHT)
+            image_scores = scores_sheet.get_image(frame_index, c.S_WIDTH, c.S_HEIGHT)
             self.game_over_frames[frame_index] = image_game_over
+            self.scores_frames[frame_index] = image_scores
             
     def get_frame(self, name, value):
         frames = getattr(self, f"{name}_frames")

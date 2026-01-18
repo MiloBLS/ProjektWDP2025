@@ -19,7 +19,8 @@ class MenuState:
                 elif self.current_frame_index == 2:
                     pass
                 elif self.current_frame_index == 3:
-                    pass
+                    self.game.scores_state.load_scores()
+                    self.game.current_state = "SCORES"
                 elif self.current_frame_index == 4:
                     self.game.running = False
 
@@ -40,8 +41,5 @@ class MenuState:
     def draw(self, screen):
         image = self.game.assets.get_frame("menu", self.current_frame_index)
         screen.blit(image, (0, 0))
-            
-        # pygame.draw.rect(screen, (255, 0, 0), self.btn_start, 1)
-        # pygame.draw.rect(screen, (255, 0, 0), self.btn_settings, 1)
-        # pygame.draw.rect(screen, (255, 0, 0), self.btn_scores, 1)
-        # pygame.draw.rect(screen, (255, 0, 0), self.btn_quit, 1)
+
+        
