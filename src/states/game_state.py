@@ -12,12 +12,15 @@ class GameState:
         self.last_monster_value = 0
         self.monsters = 0
         self.cards_played_this_turn = 0
+
         self.deck = Deck(self.game.assets)
+        self.deck_rect = pygame.Rect(c.deck_pos_x, c.pos_y, int(c.CARD_WIDTH * c.SCALE), int(c.CARD_HEIGHT * c.SCALE))
         self.deck.shuffle()
+
         self.can_run = True
         self.healed = False
         self.hand = False
-        self.deck_rect = pygame.Rect(c.deck_pos_x, c.pos_y, int(c.CARD_WIDTH * c.SCALE), int(c.CARD_HEIGHT * c.SCALE))
+        
 
         self.room_cards = []
         self.room_cards_slots = [(c.pos_x, c.pos_y), (c.pos_x + c.gap, c.pos_y), (c.pos_x + (c.gap * 2), c.pos_y), (c.pos_x + (c.gap * 3), c.pos_y)]
@@ -97,8 +100,8 @@ class GameState:
         for card in self.discard_pile:
             card.update()
 
-        if self.player_hp <= 0:
-            self.game.game_over = True
+        if self.player_hp <= 0 or self.deck.hml == 0:
+            self.calculate_score_and_end_game()
 
     def draw(self, screen):
         bg_image = self.game.assets.get_frame("bg", max(0,self.player_hp))
@@ -132,11 +135,6 @@ class GameState:
         for card in self.weapon:
             img = card.get_img()
             screen.blit(img, card.rect)
-        # Debug info (można usunąć później)
-        font = pygame.font.SysFont(None, 24)
-        img = font.render(f"HP: {self.player_hp} Weapon: {self.current_weapon} Last: {self.last_monster_value}", True, (255, 255, 255))
-        screen.blit(img, (20, 20))
-        
 
     def handle_card_interactions(self, event):
         clicked_card = None
@@ -217,4 +215,29 @@ class GameState:
             if len(self.room_cards) <= 1:
                 self._refill_room()
     
+    def calculate_score_and_end_game(self):
+        if self.player_hp <= 0:
+            monsters_strength_left = 0
+            
+            for card in self.deck.cards:
+                suit = card.get_suit()
+                if suit in ["trefl", "pik"]:
+                    monsters_strength_left += (card.get_value() + 2)
 
+            final_score = self.player_hp - monsters_strength_left
+            
+            self.game.game_over_state.set_score(final_score)
+            self.game.current_state = "GAME_OVER"
+
+        else:
+            potions_left = 0
+
+            for card in self.deck.cards:
+                suit = card.get_suit()
+                if suit == "kier":
+                    potions_left += (card.get_value() + 2)
+                
+            final_score = self.player_hp + potions_left
+
+            self.game.game_over_state.set_score(final_score)
+            self.game.current_state = "GAME_OVER"
