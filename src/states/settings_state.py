@@ -20,6 +20,7 @@ class SettingsState:
                 if self.current_frame_index == 2:
                     c.current_speed_index = 2
 
+            c.speed = c.SPEED_PRESETS[c.current_speed_index]
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
@@ -28,12 +29,14 @@ class SettingsState:
     def update(self):
         self.mouse_pos = self.game.mouse_pos
 
-        if self.one_rect.collidepoint(self.mouse_pos) or c.current_speed_index == 0:
+        if self.one_rect.collidepoint(self.mouse_pos):
             self.current_frame_index = 0
-        if self.two_rect.collidepoint(self.mouse_pos) or c.current_speed_index == 1:
+        elif self.two_rect.collidepoint(self.mouse_pos):
             self.current_frame_index = 1
-        if self.four_rect.collidepoint(self.mouse_pos) or c.current_speed_index == 2:
+        elif self.four_rect.collidepoint(self.mouse_pos):
             self.current_frame_index = 2
+        else:
+            self.current_frame_index = c.current_speed_index
 
     def draw(self, screen):
         bg = self.game.assets.get_frame("settings", self.current_frame_index)

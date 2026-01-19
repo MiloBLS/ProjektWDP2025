@@ -10,7 +10,6 @@ Projekt został zrealizowany przy użyciu:
 * **Język:** Python 3.14.2
 * **Silnik:** pygame-ce 2.5.6 (Community Edition)
 * **Grafika:** LibreSprite 1.1
-* **Audio:** Ableton Live 12
 
 ---
 
