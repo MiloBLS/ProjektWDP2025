@@ -67,8 +67,10 @@ class GameState:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 self.game.current_state = "MENU"
-            if event.key == pygame.K_0:                                                                     #loophole for testing
+            if event.key == pygame.K_0:                                                                     #do testowania
                 self.player_hp = 20
+            if event.key == pygame.K_9:
+                self.can_run = True                                                                         #do testowania
         if event.type == pygame.MOUSEBUTTONDOWN:
             if self.run_btn_rect.collidepoint(self.mouse_pos) and self.can_run and self.cards_played_this_turn == 0:
                 self.deck.run(self.room_cards)
@@ -154,9 +156,13 @@ class GameState:
                 if self.healed == False:
                     if self.player_hp + card_value > 20:
                         card_value = card_value - ((self.player_hp + card_value) - 20)
+                        self.player_hp += card_value
                     else:
                         self.player_hp += card_value
                     self.healed = True
+                    self.discard_pile.append(clicked_card)
+                    clicked_card.move_to(int(c.pos_x + (3 * c.gap)), c.bottom_pos_y)
+                else:
                     self.discard_pile.append(clicked_card)
                     clicked_card.move_to(int(c.pos_x + (3 * c.gap)), c.bottom_pos_y)
 
