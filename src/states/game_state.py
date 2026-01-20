@@ -105,17 +105,18 @@ class GameState:
         if self.player_hp <= 0:
             self.calculate_score_and_end_game()
         else:
+            found_monster = False
             for card in self.room_cards:
-                suit = card.get_suit()
-                if suit in ["trefl", "pik"]:
+                if card.get_suit() in ["trefl", "pik"]:
+                    found_monster = True
                     break
-                else:
-                    for card in self.deck.cards:
-                        suit = card.get_suit()
-                        if suit in ["trefl", "pik"]:
-                            break
-                        else:
-                            self.calculate_score_and_end_game()
+            if not found_monster:
+                for card in self.deck.cards:
+                    if card.get_suit() in ["trefl", "pik"]:
+                        found_monster = True
+                        break
+            if not found_monster:
+                self.calculate_score_and_end_game()
             
                     
 
@@ -259,6 +260,11 @@ class GameState:
             potions_left = 0
 
             for card in self.room_cards:
+                suit = card.get_suit()
+                if suit == "kier":
+                    potions_left += (card.get_value() + 2)
+
+            for card in self.deck.cards:
                 suit = card.get_suit()
                 if suit == "kier":
                     potions_left += (card.get_value() + 2)
