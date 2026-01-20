@@ -102,8 +102,22 @@ class GameState:
         for card in self.discard_pile:
             card.update()
 
-        if self.player_hp <= 0 or self.deck.hml == 0:
+        if self.player_hp <= 0:
             self.calculate_score_and_end_game()
+        else:
+            for card in self.room_cards:
+                suit = card.get_suit()
+                if suit in ["trefl", "pik"]:
+                    break
+                else:
+                    for card in self.deck.cards:
+                        suit = card.get_suit()
+                        if suit in ["trefl", "pik"]:
+                            break
+                        else:
+                            self.calculate_score_and_end_game()
+            
+                    
 
     def draw(self, screen):
         bg_image = self.game.assets.get_frame("bg", max(0,self.player_hp))
@@ -230,6 +244,12 @@ class GameState:
                 if suit in ["trefl", "pik"]:
                     monsters_strength_left += (card.get_value() + 2)
 
+            for card in self.room_cards:
+                suit = card.get_suit()
+                if suit in ["trefl", "pik"]:
+                    monsters_strength_left += (card.get_value() + 2)
+
+
             final_score = self.player_hp - monsters_strength_left
             
             self.game.game_over_state.set_score(final_score)
@@ -238,7 +258,7 @@ class GameState:
         else:
             potions_left = 0
 
-            for card in self.deck.cards:
+            for card in self.room_cards:
                 suit = card.get_suit()
                 if suit == "kier":
                     potions_left += (card.get_value() + 2)
