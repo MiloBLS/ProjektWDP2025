@@ -7,7 +7,7 @@ class Deck:
         self.cards = []
         self._build()
 
-    def _build(self):
+    def _build(self):                                                           #Konstruuje talię kart
         suits = ["pik", "trefl", "kier", "karo"]
 
         for suit in suits:
@@ -20,7 +20,7 @@ class Deck:
                 new_card.set_img(card_image)
                 self.cards.append(new_card)
 
-    def shuffle(self):
+    def shuffle(self):                                                          #Tasuje karty
         random.shuffle(self.cards)
 
     def draw(self):
@@ -32,5 +32,5 @@ class Deck:
         for card in cards_to_run:
             self.cards.insert(0, card)
 
-    def hml(self):
+    def hml(self):                                                                #Zwraca ilość pozostałych kart w talii
         return len(self.cards)

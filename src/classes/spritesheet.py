@@ -6,13 +6,14 @@ class SpriteSheet():
         self.source = source
         self.isalpha = isalpha
         self._load()
-    def _load(self):
+
+    def _load(self):                                                                    # Funkcja konwertująca przeźroczyste tło bądź nie, zaleźnie od typu assetu
         if self.isalpha:
             self.sheet = pygame.image.load(self.source).convert_alpha()
         else:
             self.sheet = pygame.image.load(self.source).convert()
 
-    def get_image(self, frame, width, height, color = None, scale = c.SCALE):
+    def get_image(self, frame, width, height, color = None, scale = c.SCALE):           #Funckja wycinająca odpowiednią klatkę assetu
         if self.isalpha:
             image = pygame.Surface((width, height)).convert_alpha()
         else:

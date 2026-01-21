@@ -17,7 +17,7 @@ class Card:
         return self.value
     def move_to(self, x, y):
         self.target_pos = (x, y)
-    def update(self):
+    def update(self):                                           #Wywoływana co klatkę funkcja do przesuwania karty o odpowiednia wartość w stronę celu ustawionego funkcję wczesniej
         if self.rect and self.target_pos:
             target_x, target_y = self.target_pos
 

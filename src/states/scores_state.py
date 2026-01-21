@@ -11,7 +11,7 @@ class ScoresState:
         self.menu_rect = pygame.Rect(int(58 * c.SCALE), int(291 * c.SCALE), int(80 * c.SCALE), int(22 * c.SCALE))
         self.clear_rect = pygame.Rect(int(480 * c.SCALE), int(269 * c.SCALE), int(118 * c.SCALE), int(56 * c.SCALE))
 
-    def load_scores(self):
+    def load_scores(self):                                              #Funkcja odzcytująca dane z pliku scores.txt
         self.scores = []
         with open("src/scores.txt", "r") as f:
             lines = f.readlines()
@@ -25,7 +25,7 @@ class ScoresState:
             self.scores = sorted_scores[:8]
         f.close()
 
-    def clear_scores(self):
+    def clear_scores(self):                                             #Funkcja czyszcząca dane 
         with open("src/scores.txt", "w") as f:
             f.write("")
         self.load_scores()

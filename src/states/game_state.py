@@ -30,12 +30,12 @@ class GameState:
         self.weapon = []
         self.monsters_pile = []
 
-    def _refill_room(self):
+    def _refill_room(self):                                     #Funkcja rozdająca karty na stół
         self.can_run = True
         self.healed = False
         self.cards_played_this_turn = 0
 
-        for card in self.room_cards:
+        for card in self.room_cards:                            #Jeżeli pozostała jakaś karta na stole (nie uciekliśmy) to przesuwa karte w na pierwsze miejsce
             target_x, target_y = self.room_cards_slots[0]
             card.move_to(target_x, target_y)
 
@@ -142,7 +142,7 @@ class GameState:
         for card in self.room_cards:
             img = card.get_img()
             screen.blit(img, card.rect)
-            # pygame.draw.rect(screen, (255, 0, 0), card, 1)                             test hitbox kart
+            #pygame.draw.rect(screen, (255, 0, 0), card, 1)                             #test hitbox kart
         for card in self.discard_pile:
             img = card.get_img()
             screen.blit(img, card.rect)
@@ -153,7 +153,7 @@ class GameState:
             img = card.get_img()
             screen.blit(img, card.rect)
 
-    def handle_card_interactions(self, event):
+    def handle_card_interactions(self, event):                                          #mechanika kart w grze                                
         clicked_card = None
         
         for card in self.room_cards:
@@ -167,7 +167,7 @@ class GameState:
             suit = clicked_card.get_suit()
             card_value = clicked_card.get_value() + 2 
             
-            if suit == "kier":
+            if suit == "kier":                                                          #leczenie
                 if self.healed == False:
                     if self.player_hp + card_value > 20:
                         card_value = card_value - ((self.player_hp + card_value) - 20)
@@ -181,7 +181,7 @@ class GameState:
                     self.discard_pile.append(clicked_card)
                     clicked_card.move_to(int(c.pos_x + (3 * c.gap)), c.bottom_pos_y)
 
-            elif suit == "karo":
+            elif suit == "karo":                                                        #bronie
                 for card in self.weapon:
                     self.discard_pile.append(card)
                 for card in self.monsters_pile:
@@ -198,7 +198,7 @@ class GameState:
                 for card in self.weapon:
                     card.move_to(int(c.pos_x), c.bottom_pos_y)
 
-            elif suit in ["trefl", "pik"]:
+            elif suit in ["trefl", "pik"]:                                              #potwory
                 damage = 0
                 
                 if self.hand == False:
@@ -236,8 +236,8 @@ class GameState:
             if len(self.room_cards) <= 1:
                 self._refill_room()
     
-    def calculate_score_and_end_game(self):
-        if self.player_hp <= 0:
+    def calculate_score_and_end_game(self):                                             #Funkcja do obliczania wyniku
+        if self.player_hp <= 0:                                                         #Jeżeli przegraliśmy
             monsters_strength_left = 0
             
             for card in self.deck.cards:
@@ -256,7 +256,7 @@ class GameState:
             self.game.game_over_state.set_score(final_score)
             self.game.current_state = "GAME_OVER"
 
-        else:
+        else:                                                                           #Jeżeli wygraliśmy
             potions_left = 0
 
             for card in self.room_cards:

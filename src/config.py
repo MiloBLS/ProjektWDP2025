@@ -1,5 +1,5 @@
-import os
-import pygame
+import os               
+import pygame           #oba importy potrzebne do full screena
 
 pygame.display.init()
 
@@ -21,12 +21,14 @@ CARD_HEIGHT = 128
 S_WIDTH = 640
 S_HEIGHT = 360
 
+#pozycje dla kart
 pos_x = int(170 * SCALE)
 pos_y = int(32 * SCALE)
 gap = int(106 * SCALE)
 deck_pos_x = int(24 * SCALE)
 bottom_pos_y = int(200 * SCALE)
 
+#szybkość animacji
 SPEED_PRESETS = [15, 30, 60]
 
 current_speed_index = 0

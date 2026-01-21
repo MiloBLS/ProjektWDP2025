@@ -20,7 +20,7 @@ class GameOverState:
         self.score = 0
         self.score_saved = False
 
-    def set_score(self, score):
+    def set_score(self, score):                         #Funkcja używana przy zakańczanu rogrywki w game state
         self.score = score
         self.score_saved = False
         self.player_name = ""
@@ -50,7 +50,7 @@ class GameOverState:
                     if len(self.player_name) < 15:
                         self.player_name += event.unicode
 
-    def save_score(self):
+    def save_score(self):                                           #Funkcja zapisująca wynik do pliku scores.txt
         if self.player_name.strip() == "":
             return    
         else:

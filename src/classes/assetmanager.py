@@ -72,6 +72,6 @@ class AssetManager:
             self.scores_frames[frame_index] = image_scores
             self.settings_frames[frame_index] = image_settings
             
-    def get_frame(self, name, value):
+    def get_frame(self, name, value):                               #Funkcja do pobierania odpowiedniego obrazu
         frames = getattr(self, f"{name}_frames")
         return frames.get(value)

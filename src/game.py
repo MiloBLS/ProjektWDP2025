@@ -15,8 +15,10 @@ class Game:
         self.clock = pygame.time.Clock()
         self.game_timer = 0
         self.running = True
+        #assety
         self.assets = AssetManager()
         self.assets.load_content()
+        #inicjujemy stany
         self.current_state = "MENU"
         self.menu_state = MenuState(self)
         self.game_state = GameState(self)
@@ -25,7 +27,7 @@ class Game:
         self.settings_state = SettingsState(self)
         
 
-    def run(self):
+    def run(self):                                              #główna pętla gry
         while self.running:
             self._handle_events()
             self._update()           
@@ -33,7 +35,7 @@ class Game:
             self.clock.tick(c.FPS)
         pygame.quit()
 
-    def _handle_events(self):
+    def _handle_events(self):                                   #zarządzanie inputami gracza
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False
@@ -53,7 +55,7 @@ class Game:
             elif self.current_state == "SETTINGS":
                 self.settings_state.handle_events(event)
 
-    def _update(self):
+    def _update(self):                                          #aktualizowanie wyglądu i mechanik rogrywki
         self.mouse_pos = pygame.mouse.get_pos()
         if self.current_state == "MENU":
             self.menu_state.update()
@@ -70,7 +72,7 @@ class Game:
         elif self.current_state == "SETTINGS":
             self.settings_state.update()
 
-    def _draw(self):
+    def _draw(self):                                            #Rysowanie assetów na ekranie
         if self.current_state == "MENU":
             self.menu_state.draw(self.screen)
 
