@@ -40,7 +40,7 @@ Z talii usunięte są Jokery oraz czerwone figury i Asy. Pozostałe karty pełni
 * **Zbieranie Broni (♦️):** Podniesienie broni automatycznie ją ekwipuje. Jeśli masz już broń, stara zostaje wyrzucona (wraz z zabitymi nią potworami).
 * **Picie Mikstury (♥️):** Leczy Cię o wskazaną wartość. Możesz wypić tylko **jedną** miksturę na turę (druga przepada, jeśli ją klikniesz).
 * **Walka z Potworem (♣️/♠️):**
-    * **Gołe ręce:** Otrzymujesz obrażenia równe pełnej sile potwora.
+    * **Gołe ręce:** Otrzymujesz obrażenia równe pełnej sile potwora, ale twoja broń się nie "tępi".
     * **Użycie Broni:** Obrażenia = Siła Potwora - Siła Broni. (Jeśli wynik jest ujemny, nie otrzymujesz obrażeń).
 
 ### ⚠️ Ważna zasada: Tępienie Ostrza
@@ -50,7 +50,7 @@ Kluczowa mechanika gry. Kiedy użyjesz broni na potworze, ta broń zapamiętuje 
 * Jeśli potwór jest silniejszy niż ostatni zabity – musisz walczyć gołymi rękami (ale nie tracisz broni).
 
 ### Punktacja
-Gra kończy się, gdy skończy się talia lub zginiesz.
+Gra kończy się, gdy zabijesz wszystkie potwory lub zginiesz.
 * **Wygrana (przejście lochu):** Twój wynik to pozostałe **punkty życia + pozostałe mikstury**.
 * **Przegrana (śmierć):** Od Twojego życia (ujemnego) odejmuje się sumę siły wszystkich potworów, które zostały w talii.
 
@@ -61,3 +61,24 @@ Gra kończy się, gdy skończy się talia lub zginiesz.
 
 **Gdańsk, 2025**
 **Miłosz Ostrowski, 1 rok informatyki praktycznej, studia I stopnia na Uniwersytecie Gdańskim**
+
+---
+## Źródła
+Podczas tworzenia projektu wykorzystana została dokumentacja do biblioteki pygame, rozmaite tutoriale na youtube,
+oraz wiedza zdobyta na zajęciach koła naukowego Work In Progress. Oprócztego w projekcie użyte zostały udostępnione
+do użytku publicznego czcionki.
+
+# *Linki*
+*(Stan na 21 styczńa 2025)*
+
+*Dokumentacja i youtube*
+* https://www.pygame.org/docs/
+* https://www.youtube.com/watch?v=AY9MnQ4x3zk
+* https://www.youtube.com/watch?v=M6e3_8LHc7A
+* https://www.youtube.com/watch?v=JeznW_7DlB0
+* https://www.youtube.com/watch?v=GX_fsDz4j8A
+* https://www.youtube.com/watch?v=BRrem1k3904
+*Linki do czcionek*
+* https://www.dafont.com/pixellari.font
+* https://www.dafont.com/minecraft.font
+* https://www.dafont.com/alagard.font
